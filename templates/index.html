@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latent Semantic Analysis (LSA) Search Engine</title>
+    <!-- Adding Bootstrap for styling -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        h1 {
+            color: #007bff;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+        .form-inline {
+            display: flex;
+            width: 50%;
+            justify-content: center;
+        }
+        input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            margin-right: 10px;
+        }
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .results-container {
+            padding: 20px;
+            text-align: center;
+        }
+        .result-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .result-card h3 {
+            font-size: 1.2rem;
+            color: #333;
+        }
+        .result-card p {
+            color: #555;
+            font-size: 0.9rem;
+            white-space: pre-wrap;  /* Keeps the formatting of the document text */
+        }
+        .similarity-score {
+            color: #007bff;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        .chart {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="search-container">
+    <h1>Latent Semantic Analysis (LSA) Search Engine</h1>
+    <form class="form-inline" action="/" method="POST">
+        <input type="text" name="query" class="form-control" placeholder="Enter search query" required>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+<div class="container">
+    <h1>Results</h1>
+    <div class="results-container">
+        {% for doc, sim in docs %}
+        <div class="result-card">
+            <h3>Document {{ loop.index }}</h3>
+            <p>{{ doc }}</p>
+            <p class="similarity-score">Similarity: {{ sim }}</p>
+        </div>
+        {% endfor %}
+        
+        <div class="chart">
+            <h2>Cosine Similarity Bar Chart</h2>
+            <img src="data:image/png;base64,{{ plot_url }}" alt="Cosine Similarity Chart" class="img-fluid" />
+        </div>
+    </div>
+</div>
+</body>
+</html>
